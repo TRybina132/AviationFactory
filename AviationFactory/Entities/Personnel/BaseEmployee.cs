@@ -2,7 +2,7 @@ using AviationFactory.Models.Enums;
 
 namespace AviationFactory.Entities.Personnel;
 
-public class BaseEmployee
+public abstract class BaseEmployee
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; }
@@ -12,5 +12,6 @@ public class BaseEmployee
     public string Email { get; set; }
     public string? Address { get; set; }
     public Gender Gender { get; set; }
-    public string? TeamId { get; set; }
+    public Guid? TeamId { get; set; }
+    public Guid? DepartmentId { get; set; }
 }
