@@ -1,4 +1,8 @@
+using AviationFactory.Entities.Products;
+using AviationFactory.Entities.Products.Helicopter;
+using AviationFactory.Entities.Products.Missiles;
 using AviationFactory.Entities.Products.Planes;
+using AviationFactory.Models.Enums;
 using AviationFactory.Services.Abstractions;
 
 namespace AviationFactory.Services;
@@ -6,13 +10,15 @@ namespace AviationFactory.Services;
 // Implements singleton
 public sealed class ProductManager : IProductManager
 {
-    private readonly List<BasePlane> _planes;
+    private readonly List<BaseProduct> _products;
+    private readonly List<ProductUnit> _assembledProducts;
     
     public static ProductManager Instance => _instance;
 
     private ProductManager()
     {
-        _planes = [];    
+        _products = [];    
+        _assembledProducts = [];
     }
 
     static ProductManager()
@@ -24,6 +30,51 @@ public sealed class ProductManager : IProductManager
     
     public List<BasePlane> GetAllPlanes()
     {
-        return _planes;
+        List<BasePlane> planes = _products
+            .Where(p => p.ProductType == ProductType.Plane)
+            .Select(p => p as BasePlane)
+            .Where(p => p != null)
+            .ToList()!;
+        
+        return planes;
+    }
+
+    public List<BaseHelicopter> GetAllHelicopters()
+    {
+        List<BaseHelicopter> helicopter = _products
+            .Where(p => p.ProductType == ProductType.Helicopter)
+            .Select(p => p as BaseHelicopter)
+            .Where(p => p != null)
+            .ToList()!;
+        
+        return helicopter;
+    }
+
+    public List<BaseMissile> GetAllMissiles()
+    {
+        List<BaseMissile> missile = _products
+            .Where(p => p.ProductType == ProductType.Missile)
+            .Select(p => p as BaseMissile)
+            .Where(p => p != null)
+            .ToList()!;
+        
+        return missile;
+    }
+
+    public List<BaseProduct> GetShopProducts(Guid shopId)
+    {
+        return _products.Where(p => p.ShopId == shopId).ToList();
+    }
+
+    public List<BaseProduct> GetDepartmentProducts(Guid departmentId)
+    {
+        return _products.Where(p => p.DepartmentId == departmentId).ToList();
+    }
+
+    public List<ProductUnit> GetAssembledProducts(Guid shopId, DateTime startTime, DateTime endTime)
+    {
+        return _assembledProducts.Where(p => p.ShopId == shopId
+                                             && p.ManufactureDate >= startTime
+                                             && p.ManufactureDate <= endTime).ToList();
     }
 }
