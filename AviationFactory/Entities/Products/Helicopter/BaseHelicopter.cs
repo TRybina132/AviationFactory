@@ -1,3 +1,5 @@
+using AviationFactory.Models.Enums;
+
 namespace AviationFactory.Entities.Products.Helicopter;
 
 public class BaseHelicopter : BaseProduct
@@ -11,4 +13,6 @@ public class BaseHelicopter : BaseProduct
     public double Range { get; set; }
     
     public string EngineType { get; set; }
+    
+    public HelicopterType Type { get; set; }
 }
