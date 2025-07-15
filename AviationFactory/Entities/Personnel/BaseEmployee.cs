@@ -14,4 +14,6 @@ public abstract class BaseEmployee
     public Gender Gender { get; set; }
     public Guid? TeamId { get; set; }
     public Guid? DepartmentId { get; set; }
+    public Guid? ShopId { get; set; }
+    public EmployeeType Type { get; set; }
 }
