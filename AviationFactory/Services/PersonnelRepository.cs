@@ -5,23 +5,23 @@ using AviationFactory.Services.Abstractions;
 
 namespace AviationFactory.Services;
 
-public sealed class PersonnelManager : IPersonnelManager
+public sealed class PersonnelRepository : IPersonnelRepository
 {
     private readonly List<BaseEmployee> _employees;
     
-    private static readonly PersonnelManager _instance;
+    private static readonly PersonnelRepository _instance;
     
-    private PersonnelManager()
+    private PersonnelRepository()
     {
         _employees = new List<BaseEmployee>();
     }
 
-    static PersonnelManager()
+    static PersonnelRepository()
     {
-        _instance = new PersonnelManager();
+        _instance = new PersonnelRepository();
     }
     
-    public static PersonnelManager Instance => _instance;
+    public static PersonnelRepository Instance => _instance;
     
     public List<BaseEmployee> GetAllEmployees()
     {

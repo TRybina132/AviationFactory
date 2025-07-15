@@ -4,7 +4,7 @@ using AviationFactory.Entities.Personnel.Workers;
 
 namespace AviationFactory.Services.Abstractions;
 
-public interface IPersonnelManager
+public interface IPersonnelRepository
 {
    List<BaseEmployee> GetAllEmployees(); 
    List<BaseEmployee> GetEmployeesFromDepartment(Guid departmentId);

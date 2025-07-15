@@ -8,25 +8,25 @@ using AviationFactory.Services.Abstractions;
 namespace AviationFactory.Services;
 
 // Implements singleton
-public sealed class ProductManager : IProductManager
+public sealed class ProductRepository : IProductRepository
 {
     private readonly List<BaseProduct> _products;
     private readonly List<ProductUnit> _assembledProducts;
     
-    public static ProductManager Instance => _instance;
+    public static ProductRepository Instance => _instance;
 
-    private ProductManager()
+    private ProductRepository()
     {
         _products = [];    
         _assembledProducts = [];
     }
 
-    static ProductManager()
+    static ProductRepository()
     {
-        _instance = new ProductManager();
+        _instance = new ProductRepository();
     }
     
-    private static readonly ProductManager _instance;
+    private static readonly ProductRepository _instance;
     
     public List<BasePlane> GetAllPlanes()
     {

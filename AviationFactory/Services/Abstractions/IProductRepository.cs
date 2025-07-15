@@ -5,7 +5,7 @@ using AviationFactory.Entities.Products.Planes;
 
 namespace AviationFactory.Services.Abstractions;
 
-public interface IProductManager
+public interface IProductRepository
 {
     List<BasePlane> GetAllPlanes();
     List<BaseHelicopter> GetAllHelicopters();
