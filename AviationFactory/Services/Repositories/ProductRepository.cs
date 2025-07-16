@@ -5,7 +5,7 @@ using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Models.Enums;
 using AviationFactory.Services.Abstractions;
 
-namespace AviationFactory.Services;
+namespace AviationFactory.Services.Repositories;
 
 // Implements singleton
 public sealed class ProductRepository : IProductRepository

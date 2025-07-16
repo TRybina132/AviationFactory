@@ -1,7 +1,7 @@
 using AviationFactory.Entities;
 using AviationFactory.Services.Abstractions;
 
-namespace AviationFactory.Services;
+namespace AviationFactory.Services.Repositories;
 
 public class FactoryRepository : IFactoryRepository
 {
