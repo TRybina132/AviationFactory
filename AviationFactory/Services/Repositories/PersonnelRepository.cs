@@ -51,4 +51,9 @@ public sealed class PersonnelRepository : IPersonnelRepository
         return _employees.OfType<WorkerEmployee>()
             .ToList();
     }
+
+    public BaseEmployee? GetEmployee(Guid employeeId)
+    {
+        return _employees.SingleOrDefault(e => e.Id == employeeId);
+    }
 }

@@ -11,4 +11,5 @@ public interface IPersonnelRepository
    List<BaseEmployee> GetEmployeesFromShop(Guid shopId);
    List<TechnicalEmployee> GetTechnicalEmployees();
    List<WorkerEmployee> GetWorkersEmployees();
+   BaseEmployee? GetEmployee(Guid employeeId);
 }
