@@ -53,10 +53,10 @@ public class FactoryManager : IFactoryManager
         return shopViewModels;
     }
 
-    public List<Brigade> GetBrigadesForDepartment(Guid departmentId)
+    public List<BrigadeViewModel> GetBrigadesForDepartment(Guid departmentId)
     {
         var brigades = _personnelRepository.GetBrigadesForDepartment(departmentId);
-        return brigades;
+        return GetBrigadesWithEmployees(brigades);
     }
 
     public List<BrigadeViewModel> GetBrigadesForShop(Guid shopId)
@@ -72,20 +72,29 @@ public class FactoryManager : IFactoryManager
         {
             var departmentBrigades = _personnelRepository
                 .GetBrigadesForDepartment(departmentId);
-            foreach (var brigade in departmentBrigades)
-            {
-                var employees = _personnelRepository.GetEmployees(brigade.MembersIds);
-                var foreman = _personnelRepository.GetEmployee(brigade.ForemanId);
-                var brigadeViewModel = new BrigadeViewModel
-                {
-                    Id = brigade.Id,
-                    Foreman = foreman,
-                    DepartmentId = brigade.DepartmentId,
-                    Members = employees
-                };
-                brigades.Add(brigadeViewModel);
-            }
+           
+            brigades.AddRange(GetBrigadesWithEmployees(departmentBrigades));
         }
         return brigades;
+    }
+
+    private List<BrigadeViewModel> GetBrigadesWithEmployees(List<Brigade> brigades)
+    {
+        var brigadesViewModels = new List<BrigadeViewModel>();
+        foreach (var brigade in brigades)
+        {
+            var employees = _personnelRepository.GetEmployees(brigade.MembersIds);
+            var foreman = _personnelRepository.GetEmployee(brigade.ForemanId);
+            var brigadeViewModel = new BrigadeViewModel
+            {
+                Id = brigade.Id,
+                Foreman = foreman,
+                DepartmentId = brigade.DepartmentId,
+                Members = employees
+            };
+            brigadesViewModels.Add(brigadeViewModel);
+        }
+        
+        return brigadesViewModels;
     }
 }

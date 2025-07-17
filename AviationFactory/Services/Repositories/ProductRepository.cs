@@ -91,4 +91,9 @@ public sealed class ProductRepository : IProductRepository
         return _manufacturingSteps
             .Where(s => stepIds.Contains(s.Id)).ToList();
     }
+
+    public List<BaseProduct> GetProducts(Func<BaseProduct, bool> filter)
+    {
+        return _products.Where(filter).ToList();
+    }
 }

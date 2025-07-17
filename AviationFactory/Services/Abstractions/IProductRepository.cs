@@ -3,6 +3,7 @@ using AviationFactory.Entities.Products.Helicopter;
 using AviationFactory.Entities.Products.Missiles;
 using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Models;
+using AviationFactory.Models.Enums;
 
 namespace AviationFactory.Services.Abstractions;
 
@@ -16,4 +17,5 @@ public interface IProductRepository
     List<ProductUnit> GetAssembledProducts(Guid shopId, DateTime startTime, DateTime endTime);
     BaseProduct? GetProduct(Guid productId);
     List<ManufacturingStep> GetManufacturingSteps(List<Guid> stepIds);
+    List<BaseProduct> GetProducts(Func<BaseProduct, bool> filter);
 }
