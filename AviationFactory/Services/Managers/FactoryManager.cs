@@ -1,3 +1,4 @@
+using AviationFactory.Entities;
 using AviationFactory.Models;
 using AviationFactory.Services.Abstractions;
 
@@ -31,5 +32,60 @@ public class FactoryManager : IFactoryManager
         }
 
         return departmentViewModels;
+    }
+
+    public List<ShopViewModel> GetShops()
+    {
+        var shops = _factoryRepository.GetShops();
+        var shopViewModels = new List<ShopViewModel>();
+        
+        foreach (var shop in shops)
+        {
+            var manager = _personnelRepository.GetEmployee(shop.ManagerId);
+            var shopViewModel = new ShopViewModel
+            {
+                Shop = shop,
+                Head = manager
+            };
+            shopViewModels.Add(shopViewModel);
+        }
+        
+        return shopViewModels;
+    }
+
+    public List<Brigade> GetBrigadesForDepartment(Guid departmentId)
+    {
+        var brigades = _personnelRepository.GetBrigadesForDepartment(departmentId);
+        return brigades;
+    }
+
+    public List<BrigadeViewModel> GetBrigadesForShop(Guid shopId)
+    {
+        var shop = _factoryRepository.GetShop(shopId);
+        if (shop == null)
+        {
+            return new List<BrigadeViewModel>();
+        }
+
+        var brigades = new List<BrigadeViewModel>();
+        foreach (var departmentId in shop.DepartmentsIds)
+        {
+            var departmentBrigades = _personnelRepository
+                .GetBrigadesForDepartment(departmentId);
+            foreach (var brigade in departmentBrigades)
+            {
+                var employees = _personnelRepository.GetEmployees(brigade.MembersIds);
+                var foreman = _personnelRepository.GetEmployee(brigade.ForemanId);
+                var brigadeViewModel = new BrigadeViewModel
+                {
+                    Id = brigade.Id,
+                    Foreman = foreman,
+                    DepartmentId = brigade.DepartmentId,
+                    Members = employees
+                };
+                brigades.Add(brigadeViewModel);
+            }
+        }
+        return brigades;
     }
 }

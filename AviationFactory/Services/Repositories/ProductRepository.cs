@@ -2,6 +2,7 @@ using AviationFactory.Entities.Products;
 using AviationFactory.Entities.Products.Helicopter;
 using AviationFactory.Entities.Products.Missiles;
 using AviationFactory.Entities.Products.Planes;
+using AviationFactory.Models;
 using AviationFactory.Models.Enums;
 using AviationFactory.Services.Abstractions;
 
@@ -12,6 +13,7 @@ public sealed class ProductRepository : IProductRepository
 {
     private readonly List<BaseProduct> _products;
     private readonly List<ProductUnit> _assembledProducts;
+    private readonly List<ManufacturingStep> _manufacturingSteps;
     
     public static ProductRepository Instance => _instance;
 
@@ -19,6 +21,7 @@ public sealed class ProductRepository : IProductRepository
     {
         _products = [];    
         _assembledProducts = [];
+        _manufacturingSteps = [];
     }
 
     static ProductRepository()
@@ -76,5 +79,16 @@ public sealed class ProductRepository : IProductRepository
         return _assembledProducts.Where(p => p.ShopId == shopId
                                              && p.ManufactureDate >= startTime
                                              && p.ManufactureDate <= endTime).ToList();
+    }
+
+    public BaseProduct? GetProduct(Guid productId)
+    {
+        return _products.SingleOrDefault(p => p.Id == productId);
+    }
+
+    public List<ManufacturingStep> GetManufacturingSteps(List<Guid> stepIds)
+    {
+        return _manufacturingSteps
+            .Where(s => stepIds.Contains(s.Id)).ToList();
     }
 }

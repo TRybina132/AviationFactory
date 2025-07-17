@@ -33,4 +33,9 @@ public class FactoryRepository : IFactoryRepository
     {
         return _shops;
     }
+
+    public Shop? GetShop(Guid shopId)
+    {
+        return _shops.SingleOrDefault(s => s.Id == shopId);
+    }
 }

@@ -1,3 +1,4 @@
+using AviationFactory.Entities;
 using AviationFactory.Entities.Personnel;
 using AviationFactory.Entities.Personnel.Technical;
 using AviationFactory.Entities.Personnel.Workers;
@@ -8,12 +9,14 @@ namespace AviationFactory.Services.Repositories;
 public sealed class PersonnelRepository : IPersonnelRepository
 {
     private readonly List<BaseEmployee> _employees;
+    private readonly List<Brigade> _brigades;
     
     private static readonly PersonnelRepository _instance;
     
     private PersonnelRepository()
     {
         _employees = new List<BaseEmployee>();
+        _brigades = [];
     }
 
     static PersonnelRepository()
@@ -26,6 +29,11 @@ public sealed class PersonnelRepository : IPersonnelRepository
     public List<BaseEmployee> GetAllEmployees()
     {
         return _employees;
+    }
+
+    public List<BaseEmployee> GetEmployees(List<Guid> employeeIds)
+    {
+        return _employees.Where(x => employeeIds.Contains(x.Id)).ToList();
     }
 
     public List<BaseEmployee> GetEmployeesFromDepartment(Guid departmentId)
@@ -55,5 +63,16 @@ public sealed class PersonnelRepository : IPersonnelRepository
     public BaseEmployee? GetEmployee(Guid employeeId)
     {
         return _employees.SingleOrDefault(e => e.Id == employeeId);
+    }
+
+    public Brigade? GetBrigade(Guid brigadeId)
+    {
+        return _brigades.SingleOrDefault(b => b.Id == brigadeId);
+    }
+
+    public List<Brigade> GetBrigadesForDepartment(Guid departmentId)
+    {
+        return _brigades.Where(b => b.DepartmentId == departmentId)
+            .ToList();
     }
 }

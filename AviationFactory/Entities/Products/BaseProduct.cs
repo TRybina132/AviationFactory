@@ -10,4 +10,5 @@ public abstract class BaseProduct
     public ProductType ProductType { get; set; }
     public Guid ShopId { get; set; }
     public Guid DepartmentId { get; set; }
+    public List<Guid> ManufacturingStepsIds { get; set; }
 }
