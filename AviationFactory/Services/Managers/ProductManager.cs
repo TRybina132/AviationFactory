@@ -1,3 +1,5 @@
+using AviationFactory.Entities;
+using AviationFactory.Entities.Personnel;
 using AviationFactory.Entities.Products;
 using AviationFactory.Models;
 using AviationFactory.Models.Enums;
@@ -8,10 +10,17 @@ namespace AviationFactory.Services.Managers;
 public class ProductManager : IProductManager
 {
     private readonly IProductRepository _productRepository;
+    private readonly IPersonnelRepository _personnelRepository;
+    private readonly ILabRepository _labRepository;
 
-    public ProductManager(IProductRepository productRepository)
+    public ProductManager(
+        IProductRepository productRepository, 
+        IPersonnelRepository personnelRepository, 
+        ILabRepository labRepository)
     {
         _productRepository = productRepository;
+        _personnelRepository = personnelRepository;
+        _labRepository = labRepository;
     }
 
     public List<ManufacturingStep> GetManufacturingSteps(Guid productId)
@@ -47,5 +56,44 @@ public class ProductManager : IProductManager
             .GetProducts(p => p.ProductType == type);
         
         return products;
+    }
+
+    public List<BrigadeViewModel> GetEmployeesForProduct(Guid productId)
+    {
+        var product = _productRepository.GetProduct(productId);
+        
+        if (product == null)
+        {
+            return [];
+        }
+        
+        var viewModels = new List<BrigadeViewModel>();
+        var brigades = _personnelRepository
+            .GetBrigadesForDepartment(product.DepartmentId);
+        foreach (var brigade in brigades)
+        {
+            var foreman = _personnelRepository.GetEmployee(brigade.ForemanId);
+            var employees = _personnelRepository.GetEmployees(brigade.MembersIds);
+            viewModels.Add(new BrigadeViewModel
+            {
+                Id = brigade.Id,
+                DepartmentId = brigade.DepartmentId,
+                Foreman = foreman,
+                Members = employees
+            });
+        }
+        
+        return viewModels;
+    }
+
+    public List<Lab> GetLabsInvolvedInTesting(Guid productId)
+    {
+        var product = _productRepository.GetProduct(productId);
+        if (product == null)
+        {
+            return [];
+        }
+        
+        return _labRepository.GetLabs(product.LabsIds);
     }
 }

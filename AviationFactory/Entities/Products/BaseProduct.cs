@@ -11,4 +11,5 @@ public abstract class BaseProduct
     public Guid ShopId { get; set; }
     public Guid DepartmentId { get; set; }
     public List<Guid> ManufacturingStepsIds { get; set; }
+    public List<Guid> LabsIds { get; set; }
 }
