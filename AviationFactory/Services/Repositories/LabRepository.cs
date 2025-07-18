@@ -19,8 +19,14 @@ public class LabRepository : ILabRepository
     }
     
     public static LabRepository Instance => _instance;
+    
     public List<Lab> GetLabs(List<Guid> labIds)
     {
         return _labs.Where(l => labIds.Contains(l.Id)).ToList();
+    }
+
+    public Lab? GetLab(Guid labId)
+    {
+        return _labs.SingleOrDefault(l => l.Id == labId);
     }
 }

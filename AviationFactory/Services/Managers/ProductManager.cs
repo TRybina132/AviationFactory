@@ -85,15 +85,4 @@ public class ProductManager : IProductManager
         
         return viewModels;
     }
-
-    public List<Lab> GetLabsInvolvedInTesting(Guid productId)
-    {
-        var product = _productRepository.GetProduct(productId);
-        if (product == null)
-        {
-            return [];
-        }
-        
-        return _labRepository.GetLabs(product.LabsIds);
-    }
 }

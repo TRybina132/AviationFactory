@@ -13,5 +13,4 @@ public interface IProductManager
     List<BaseProduct> GetProductsAssembledInDepartment(Guid departmentId, ProductType type);
     List<BaseProduct> GetProducts(ProductType type);
     List<BrigadeViewModel> GetEmployeesForProduct(Guid productId);
-    List<Lab> GetLabsInvolvedInTesting(Guid productId);
 }
