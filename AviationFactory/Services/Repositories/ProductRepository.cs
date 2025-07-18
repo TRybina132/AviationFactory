@@ -96,4 +96,9 @@ public sealed class ProductRepository : IProductRepository
     {
         return _products.Where(filter).ToList();
     }
+
+    public List<ProductUnit> GetProductUnits(Func<ProductUnit, bool> filter)
+    {
+        return _assembledProducts.Where(filter).ToList();
+    }
 }

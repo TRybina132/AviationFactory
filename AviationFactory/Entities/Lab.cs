@@ -6,4 +6,5 @@ public class Lab
     public string Name { get; set; }
     public string? Description { get; set; }
     public List<Guid>? Departments { get; set; }
+    public List<Guid>? WorkersIds { get; set; }
 }
