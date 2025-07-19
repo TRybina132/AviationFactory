@@ -13,7 +13,29 @@ public class ProductUnit
     public string SerialNumber { get; set; }
     public DateTime ManufactureDate { get; set; }
     public Guid ShopId { get; set; }
-    public List<ManufacturingStage> ManufacturingSteps { get; set; }
     public List<TestingStage> TestingStages { get; set; }
+    public List<ManufacturingStage> ManufacturingStages { get; set; } = [];
     
+    private ManufacturingState? _state;
+    
+    public ManufacturingState CurrentState => _state;
+    
+    public void MoveToNextStep(ManufacturingStep nextStep)
+    {
+        _state.TransitionTo(nextStep);
+    }
+    
+    public void SetState(ManufacturingState state)
+    {
+        if (_state != null)
+        {
+            ManufacturingStages.Add(new ManufacturingStage
+            {
+                Name = _state.Name,
+                StartDate = _state.StartDate,
+                EndDate = _state.EndDate ?? DateTime.Now
+            });
+        }
+        _state = state;
+    }
 }
