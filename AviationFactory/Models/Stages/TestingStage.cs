@@ -1,4 +1,4 @@
-namespace AviationFactory.Models.Steps;
+namespace AviationFactory.Models.Stages;
 
 public class TestingStage
 {

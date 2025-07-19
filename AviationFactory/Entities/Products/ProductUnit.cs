@@ -1,6 +1,6 @@
 using AviationFactory.Models;
 using AviationFactory.Models.Enums;
-using AviationFactory.Models.Steps;
+using AviationFactory.Models.Stages;
 
 namespace AviationFactory.Entities.Products;
 
