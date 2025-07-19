@@ -101,4 +101,9 @@ public sealed class ProductRepository : IProductRepository
     {
         return _assembledProducts.Where(filter).ToList();
     }
+
+    public ProductUnit? GetProductUnit(Guid productUnitId)
+    {
+        return _assembledProducts.SingleOrDefault(p => p.Id == productUnitId);
+    }
 }

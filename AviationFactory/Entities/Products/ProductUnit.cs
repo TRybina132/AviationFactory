@@ -15,4 +15,5 @@ public class ProductUnit
     public Guid ShopId { get; set; }
     public List<ManufacturingStage> ManufacturingSteps { get; set; }
     public List<TestingStage> TestingStages { get; set; }
+    
 }

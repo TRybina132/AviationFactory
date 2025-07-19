@@ -19,4 +19,5 @@ public interface IProductRepository
     List<ManufacturingStep> GetManufacturingSteps(List<Guid> stepIds);
     List<BaseProduct> GetProducts(Func<BaseProduct, bool> filter);
     List<ProductUnit> GetProductUnits(Func<ProductUnit, bool> filter);
+    ProductUnit? GetProductUnit(Guid productUnitId);
 }

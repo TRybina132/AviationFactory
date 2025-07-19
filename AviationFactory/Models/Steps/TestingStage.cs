@@ -8,4 +8,5 @@ public class TestingStage
     public DateTime? EndDate { get; set; }
     public Guid LabId { get; set; }
     public List<Guid> TesterIds { get; set; } = new List<Guid>();
+    public List<string>? UsedEquipment { get; set; }
 }
