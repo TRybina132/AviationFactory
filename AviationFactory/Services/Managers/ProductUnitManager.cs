@@ -80,15 +80,19 @@ public class ProductUnitManager : IProductUnitManager
         
         if (product is BasePlane plane)
         {
-            productUnit.SerialNumber = $"PL-{plane.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+            productUnit.SerialNumber = $"PL-{plane.ModelName}-{GetLast4Characters(plane.Id)}";
         }
         else if (product is BaseHelicopter helicopter)
         {
-            productUnit.SerialNumber = $"HC-{helicopter.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+            productUnit.SerialNumber = $"HC-{helicopter.ModelName}-{DateTime.Now:yyyyMMddHHmmss}-{GetLast4Characters(helicopter.Id)}";
         }
         else if (product is BaseMissile missile)
         {
-            productUnit.SerialNumber = $"MS-{missile.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+            productUnit.SerialNumber = $"MS-{missile.ModelName}-{DateTime.Now:yyyyMMddHHmmss}-{GetLast4Characters(missile.Id)}";
+        }
+        else
+        {
+            productUnit.SerialNumber = $"{product.ModelName}-{DateTime.Now:yyyyMMddHHmmss}-{GetLast4Characters(product.Id)}";
         }
         
         if (!_productRepository.CreateProductUnit(productUnit))
@@ -101,11 +105,39 @@ public class ProductUnitManager : IProductUnitManager
 
     public bool AddTestingStageToProductUnit(Guid productUnitId, TestingStage testingStage)
     {
-        throw new NotImplementedException();
+        var unit = _productRepository.GetProductUnit(productUnitId);
+        if (unit == null)
+        {
+            return false; // Product unit not found
+        }
+
+        unit.TestingStages ??= [];
+        unit.TestingStages.Add(testingStage);
+        
+        return true;
     }
 
-    public bool MoveProductUnitToNextStage(Guid productUnitId, ManufacturingStage nextStage)
+    public bool MoveProductUnitToNextStage(Guid productUnitId, Guid nextStepId)
     {
-        throw new NotImplementedException();
+        var productUnit = _productRepository.GetProductUnit(productUnitId);
+        if (productUnit == null)
+        {
+            return false;
+        }
+
+        var nextStep = _productRepository.GetManufacturingSteps(new List<Guid> { nextStepId }).FirstOrDefault();
+        if (nextStep == null)
+        {
+            return false;
+        }
+
+        productUnit.MoveToNextStep(nextStep);
+        return true;
+    }
+
+    private string GetLast4Characters(Guid productId)
+    {
+        var guidString = productId.ToString("N");
+        return guidString.Substring(guidString.Length - 4);
     }
 }

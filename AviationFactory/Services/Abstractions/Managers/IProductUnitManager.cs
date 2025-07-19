@@ -20,6 +20,6 @@ public interface IProductUnitManager
         TestingStage testingStage);
     
     bool MoveProductUnitToNextStage(
-        Guid productUnitId, 
-        ManufacturingStage nextStage);
+        Guid productUnitId,
+        Guid nextStepId);
 }

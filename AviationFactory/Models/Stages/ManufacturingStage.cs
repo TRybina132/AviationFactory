@@ -24,7 +24,7 @@ public class ManufacturingState
         if (CanTransition.Contains(nextStep.Name))
         {
             EndDate = DateTime.Now;
-            _productUnit.SetState(new ManufacturingState(_productUnit, CanTransition, nextStep.Name));
+            _productUnit.SetState(new ManufacturingState(_productUnit, nextStep.CanTransition, nextStep.Name));
         }
     }
 }

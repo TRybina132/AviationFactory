@@ -22,6 +22,7 @@ public class ProductUnit
     
     public void MoveToNextStep(ManufacturingStep nextStep)
     {
+        _state ??= new ManufacturingState(this, nextStep.CanTransition, nextStep.Name);
         _state.TransitionTo(nextStep);
     }
     
