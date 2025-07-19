@@ -2,7 +2,7 @@ using AviationFactory.Entities;
 using AviationFactory.Entities.Personnel;
 using AviationFactory.Models.Enums;
 
-namespace AviationFactory.Services.Abstractions;
+namespace AviationFactory.Services.Abstractions.Managers;
 
 public interface ILabManager
 {

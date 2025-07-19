@@ -1,6 +1,6 @@
 using AviationFactory.Entities;
 
-namespace AviationFactory.Services.Abstractions;
+namespace AviationFactory.Services.Abstractions.Repositories;
 
 public interface IFactoryRepository
 {   

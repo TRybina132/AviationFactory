@@ -4,6 +4,8 @@ using AviationFactory.Entities.Products;
 using AviationFactory.Models;
 using AviationFactory.Models.Enums;
 using AviationFactory.Services.Abstractions;
+using AviationFactory.Services.Abstractions.Managers;
+using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Managers;
 
@@ -21,6 +23,11 @@ public class ProductManager : IProductManager
         _productRepository = productRepository;
         _personnelRepository = personnelRepository;
         _labRepository = labRepository;
+    }
+
+    public bool CreateProduct(BaseProduct product)
+    {
+        throw new NotImplementedException();
     }
 
     public List<ManufacturingStep> GetManufacturingSteps(Guid productId)

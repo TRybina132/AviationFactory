@@ -3,7 +3,7 @@ using AviationFactory.Entities.Personnel;
 using AviationFactory.Entities.Personnel.Technical;
 using AviationFactory.Entities.Personnel.Workers;
 
-namespace AviationFactory.Services.Abstractions;
+namespace AviationFactory.Services.Abstractions.Repositories;
 
 public interface IPersonnelRepository
 {

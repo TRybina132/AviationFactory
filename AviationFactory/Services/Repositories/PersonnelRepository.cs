@@ -3,6 +3,7 @@ using AviationFactory.Entities.Personnel;
 using AviationFactory.Entities.Personnel.Technical;
 using AviationFactory.Entities.Personnel.Workers;
 using AviationFactory.Services.Abstractions;
+using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Repositories;
 

@@ -3,9 +3,8 @@ using AviationFactory.Entities.Products.Helicopter;
 using AviationFactory.Entities.Products.Missiles;
 using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Models;
-using AviationFactory.Models.Enums;
 
-namespace AviationFactory.Services.Abstractions;
+namespace AviationFactory.Services.Abstractions.Repositories;
 
 public interface IProductRepository
 {

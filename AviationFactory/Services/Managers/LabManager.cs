@@ -2,6 +2,8 @@ using AviationFactory.Entities;
 using AviationFactory.Entities.Personnel;
 using AviationFactory.Models.Enums;
 using AviationFactory.Services.Abstractions;
+using AviationFactory.Services.Abstractions.Managers;
+using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Managers;
 

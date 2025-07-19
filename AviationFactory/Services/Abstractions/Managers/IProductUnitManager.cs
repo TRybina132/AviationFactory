@@ -1,9 +1,7 @@
-using AviationFactory.Entities.Personnel;
-using AviationFactory.Entities.Products;
 using AviationFactory.Models;
 using AviationFactory.Models.Enums;
 
-namespace AviationFactory.Services.Abstractions;
+namespace AviationFactory.Services.Abstractions.Managers;
 
 public interface IProductUnitManager
 {
