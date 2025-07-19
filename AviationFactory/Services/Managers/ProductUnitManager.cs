@@ -1,6 +1,11 @@
 using AviationFactory.Entities.Products;
+using AviationFactory.Entities.Products.Helicopter;
+using AviationFactory.Entities.Products.Missiles;
+using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Models;
+using AviationFactory.Models.Commands;
 using AviationFactory.Models.Enums;
+using AviationFactory.Models.Stages;
 using AviationFactory.Services.Abstractions;
 using AviationFactory.Services.Abstractions.Managers;
 using AviationFactory.Services.Abstractions.Repositories;
@@ -53,5 +58,54 @@ public class ProductUnitManager : IProductUnitManager
         }
         
         return result;
+    }
+
+    public bool CreateProductUnit(CreateProductUnitCommand command)
+    {
+        var product = _productRepository.GetProduct(command.ProductId);
+        if (product == null)
+        {
+            return false; // Product not found
+        }
+        
+        var productUnit = new ProductUnit
+        {
+            Id = Guid.NewGuid(),
+            ProductId = command.ProductId,
+            ProductType = product.ProductType,
+            ManufactureDate = DateTime.Now,
+            ShopId = command.ShopId,
+            TestingStages = new List<TestingStage>()
+        };
+        
+        if (product is BasePlane plane)
+        {
+            productUnit.SerialNumber = $"PL-{plane.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+        }
+        else if (product is BaseHelicopter helicopter)
+        {
+            productUnit.SerialNumber = $"HC-{helicopter.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+        }
+        else if (product is BaseMissile missile)
+        {
+            productUnit.SerialNumber = $"MS-{missile.ModelName}-{DateTime.Now:yyyyMMddHHmmss}";
+        }
+        
+        if (!_productRepository.CreateProductUnit(productUnit))
+        {
+            return false; // Failed to create product unit
+        }
+        
+        return true;
+    }
+
+    public bool AddTestingStageToProductUnit(Guid productUnitId, TestingStage testingStage)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool MoveProductUnitToNextStage(Guid productUnitId, ManufacturingStage nextStage)
+    {
+        throw new NotImplementedException();
     }
 }
