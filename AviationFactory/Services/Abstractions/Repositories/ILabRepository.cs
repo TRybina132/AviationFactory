@@ -6,4 +6,5 @@ public interface ILabRepository
 {
     List<Lab> GetLabs(List<Guid> labIds);
     Lab? GetLab(Guid labId);
+    bool CreateLab(Lab lab);
 }

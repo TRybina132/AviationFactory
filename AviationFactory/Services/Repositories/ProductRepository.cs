@@ -107,4 +107,21 @@ public sealed class ProductRepository : IProductRepository
     {
         return _assembledProducts.SingleOrDefault(p => p.Id == productUnitId);
     }
+
+    public bool CreateProduct(BaseProduct product)
+    {
+        _products.Add(product);
+        return true;
+    }
+
+    public void CreateManufacturingStep(ManufacturingStep step)
+    {
+        _manufacturingSteps.Add(step);
+    }
+
+    public bool CreateProductUnit(ProductUnit productUnit)
+    {
+        _assembledProducts.Add(productUnit);
+        return true;
+    }
 }

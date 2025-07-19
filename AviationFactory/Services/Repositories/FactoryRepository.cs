@@ -39,4 +39,32 @@ public class FactoryRepository : IFactoryRepository
     {
         return _shops.SingleOrDefault(s => s.Id == shopId);
     }
+
+    public bool CreateDepartment(Department department)
+    {
+        var existing = _departments
+            .SingleOrDefault(d => d.Name == department.Name);
+
+        if (existing != null)
+        {
+            return false;
+        }
+        
+        _departments.Add(department);
+        return true;
+    }
+
+    public bool CreateShop(Shop shop)
+    {
+        var existing = _shops
+            .SingleOrDefault(s => s.Name == shop.Name);
+
+        if (existing != null)
+        {
+            return false;
+        }
+        
+        _shops.Add(shop);
+        return true;
+    }
 }

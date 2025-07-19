@@ -7,6 +7,7 @@ namespace AviationFactory.Services.Abstractions.Repositories;
 
 public interface IPersonnelRepository
 {
+   bool CreateEmployee(BaseEmployee employee);
    List<BaseEmployee> GetAllEmployees(); 
    List<BaseEmployee> GetEmployees(List<Guid> employeeIds);
    List<BaseEmployee> GetEmployeesFromDepartment(Guid departmentId);

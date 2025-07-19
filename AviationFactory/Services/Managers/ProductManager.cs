@@ -27,7 +27,7 @@ public class ProductManager : IProductManager
 
     public bool CreateProduct(BaseProduct product)
     {
-        throw new NotImplementedException();
+        return _productRepository.CreateProduct(product);
     }
 
     public List<ManufacturingStep> GetManufacturingSteps(Guid productId)

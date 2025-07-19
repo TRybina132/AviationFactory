@@ -26,7 +26,21 @@ public sealed class PersonnelRepository : IPersonnelRepository
     }
     
     public static PersonnelRepository Instance => _instance;
-    
+
+    public bool CreateEmployee(BaseEmployee employee)
+    {
+        var existingEmployee = _employees
+            .FirstOrDefault(e => e.Email == employee.Email);
+        
+        if (existingEmployee != null)
+        {
+            return false; // Employee with this email already exists
+        }
+        
+        _employees.Add(employee);
+        return true;
+    }
+
     public List<BaseEmployee> GetAllEmployees()
     {
         return _employees;

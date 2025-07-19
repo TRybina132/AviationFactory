@@ -30,4 +30,16 @@ public class LabRepository : ILabRepository
     {
         return _labs.SingleOrDefault(l => l.Id == labId);
     }
+
+    public bool CreateLab(Lab lab)
+    {
+        var existing = _labs.SingleOrDefault(l => l.Name == lab.Name);
+        if (existing != null)
+        {
+            return false;
+        }
+        
+        _labs.Add(lab);
+        return true;
+    }
 }
