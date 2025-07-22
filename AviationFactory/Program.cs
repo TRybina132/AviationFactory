@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Extensions;
+using AviationFactory.Models.Commands;
 using AviationFactory.Models.Enums;
 using AviationFactory.Services.Repositories;
 
@@ -35,4 +36,34 @@ var militaryProduct = productManager
 if (militaryProduct != null)
 {
     Console.WriteLine($"Fighter plane: {JsonSerializer.Serialize(militaryProduct)}");
+    var createProductUnitCommand = new CreateProductUnitCommand
+    {
+        ProductId = militaryProduct.Id,
+        ShopId = militaryFacility.ShopId,
+    };
+    var productUnitManager = ServiceInitializer.GetProductUnitManager();
+    var productUnitId = productUnitManager.CreateProductUnit(createProductUnitCommand);
+    if (productUnitId != null)
+    {
+        Console.WriteLine("Product unit created successfully.");
+        var steps = productManager.GetManufacturingSteps(militaryProduct.Id);
+        var assemble = steps.FirstOrDefault(s => s.Name == "AssembleBase");
+        var test = steps.FirstOrDefault(s => s.Name == "Test");
+        var assembleWeapons = steps.FirstOrDefault(s => s.Name == "AssembleWeapons");
+
+        productUnitManager.MoveProductUnitToNextStage(productUnitId.Value, assemble.Id);
+        var productStage1 = productUnitManager.GetProductUnitById(productUnitId.Value);
+        Console.WriteLine($"Product unit moved to AssembleBase stage. {productStage1.CurrentState.Name}");
+        
+        productUnitManager.MoveProductUnitToNextStage(productUnitId.Value, test.Id);
+        
+        var productStage2 = productUnitManager.GetProductUnitById(productUnitId.Value);
+        Console.WriteLine($"Product unit wasnt moved to test. {productStage2.CurrentState.Name}");
+        
+        
+        productUnitManager.MoveProductUnitToNextStage(productUnitId.Value, assembleWeapons.Id);
+        
+        var productStage3 = productUnitManager.GetProductUnitById(productUnitId.Value);
+        Console.WriteLine($"Product moved to next stage. {productStage3.CurrentState.Name}");
+    }
 }

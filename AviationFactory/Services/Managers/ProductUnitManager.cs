@@ -61,12 +61,12 @@ public class ProductUnitManager : IProductUnitManager
         return result;
     }
 
-    public bool CreateProductUnit(CreateProductUnitCommand command)
+    public Guid? CreateProductUnit(CreateProductUnitCommand command)
     {
         var product = _productRepository.GetProduct(command.ProductId);
         if (product == null)
         {
-            return false; // Product not found
+            return null; // Product not found
         }
         
         var productUnit = new ProductUnit
@@ -98,10 +98,10 @@ public class ProductUnitManager : IProductUnitManager
         
         if (!_productRepository.CreateProductUnit(productUnit))
         {
-            return false; // Failed to create product unit
+            return null; // Failed to create product unit
         }
         
-        return true;
+        return productUnit.Id;
     }
 
     public bool AddTestingStageToProductUnit(Guid productUnitId, TestingStage testingStage)
@@ -134,6 +134,11 @@ public class ProductUnitManager : IProductUnitManager
 
         productUnit.MoveToNextStep(nextStep);
         return true;
+    }
+
+    public ProductUnit? GetProductUnitById(Guid productUnitId)
+    {
+        return _productRepository.GetProductUnit(productUnitId);
     }
 
     private string GetLast4Characters(Guid productId)
