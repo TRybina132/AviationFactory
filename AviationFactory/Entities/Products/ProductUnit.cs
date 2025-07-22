@@ -23,7 +23,7 @@ public class ProductUnit
     // Used to switch state
     public void MoveToNextStep(ManufacturingStep nextStep)
     {
-        _state ??= new ManufacturingState(this, nextStep.CanTransition, nextStep.Name);
+        _state ??= new ManufacturingState(this, nextStep.CanTransition, nextStep.Name, nextStep.IsFinal);
         _state.TransitionTo(nextStep);
     }
     
@@ -40,5 +40,20 @@ public class ProductUnit
             });
         }
         _state = state;
+    }
+
+    public void Complete()
+    {
+        ManufactureDate = DateTime.Now;
+        if (_state != null)
+        {
+            ManufacturingStages.Add(new ManufacturingStage
+            {
+                Name = _state.Name,
+                StartDate = _state.StartDate,
+                EndDate = DateTime.Now
+            });
+            _state = null; // Reset state after completion
+        }
     }
 }

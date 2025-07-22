@@ -117,6 +117,12 @@ public sealed class ProductRepository : IProductRepository
         return true;
     }
 
+    public bool CreateProducts(List<BaseProduct> products)
+    {
+        _products.AddRange(products);
+        return true;
+    }
+
     public void CreateManufacturingStep(ManufacturingStep step)
     {
         _manufacturingSteps.Add(step);

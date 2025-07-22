@@ -10,14 +10,17 @@ public static class DataInitialization
 {
     public static ShopModel InitializePersonnelAndFacility(string prefix)
     {
-        var model = new ShopModel();
-        var personnelRepository = PersonnelRepository.Instance;
-        var factoryRepository = FactoryRepository.Instance;
-        var labRepository = LabRepository.Instance;
-        
         var departmentId = Guid.NewGuid();
         var brigadeId = Guid.NewGuid();
         var shopId = Guid.NewGuid();
+        
+        var model = new ShopModel
+        {
+            ShopId = shopId
+        };
+        var personnelRepository = PersonnelRepository.Instance;
+        var factoryRepository = FactoryRepository.Instance;
+        var labRepository = LabRepository.Instance;
         
         var foreman = new Engineer
         {

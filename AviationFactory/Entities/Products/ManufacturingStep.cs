@@ -4,9 +4,11 @@ namespace AviationFactory.Models;
 public class ManufacturingStep
 {
     public Guid Id { get; set; }
+    public Guid DepartmentId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     
     // Next steps of production after completion of this step
-    public List<string> CanTransition { get; set; }
+    public List<Guid> CanTransition { get; set; }
+    public bool IsFinal { get; set; }
 }

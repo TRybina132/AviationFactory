@@ -14,7 +14,7 @@ public interface IProductUnitManager
         DateTime endTime,
         ProductType? productType = null);
     
-    bool CreateProductUnit(CreateProductUnitCommand command);
+    Guid? CreateProductUnit(CreateProductUnitCommand command);
     bool AddTestingStageToProductUnit(
         Guid productUnitId, 
         TestingStage testingStage);
@@ -22,4 +22,6 @@ public interface IProductUnitManager
     bool MoveProductUnitToNextStage(
         Guid productUnitId,
         Guid nextStepId);
+    
+    ProductUnit? GetProductUnitById(Guid productUnitId);
 }
