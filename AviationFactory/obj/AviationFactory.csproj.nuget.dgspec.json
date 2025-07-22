@@ -1,26 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "/Users/tanyarybina/c#/AviationFactory/AviationFactory/AviationFactory.csproj": {}
+    "D:\\c#\\AviationFactory\\AviationFactory\\AviationFactory.csproj": {}
   },
   "projects": {
-    "/Users/tanyarybina/c#/AviationFactory/AviationFactory/AviationFactory.csproj": {
+    "D:\\c#\\AviationFactory\\AviationFactory\\AviationFactory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/tanyarybina/c#/AviationFactory/AviationFactory/AviationFactory.csproj",
+        "projectUniqueName": "D:\\c#\\AviationFactory\\AviationFactory\\AviationFactory.csproj",
         "projectName": "AviationFactory",
-        "projectPath": "/Users/tanyarybina/c#/AviationFactory/AviationFactory/AviationFactory.csproj",
-        "packagesPath": "/Users/tanyarybina/.nuget/packages/",
-        "outputPath": "/Users/tanyarybina/c#/AviationFactory/AviationFactory/obj/",
+        "projectPath": "D:\\c#\\AviationFactory\\AviationFactory\\AviationFactory.csproj",
+        "packagesPath": "C:\\Users\\Tanya\\.nuget\\packages\\",
+        "outputPath": "D:\\c#\\AviationFactory\\AviationFactory\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/Users/tanyarybina/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Tanya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,8 +44,7 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.200"
+        }
       },
       "frameworks": {
         "net9.0": {
@@ -60,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

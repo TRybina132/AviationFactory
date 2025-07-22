@@ -12,6 +12,7 @@ using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Managers;
 
+// Manager for performing actions with product units
 public class ProductUnitManager : IProductUnitManager
 {
     private readonly IProductRepository _productRepository;

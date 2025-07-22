@@ -13,16 +13,13 @@ public class ProductManager : IProductManager
 {
     private readonly IProductRepository _productRepository;
     private readonly IPersonnelRepository _personnelRepository;
-    private readonly ILabRepository _labRepository;
 
     public ProductManager(
         IProductRepository productRepository, 
-        IPersonnelRepository personnelRepository, 
-        ILabRepository labRepository)
+        IPersonnelRepository personnelRepository)
     {
         _productRepository = productRepository;
         _personnelRepository = personnelRepository;
-        _labRepository = labRepository;
     }
 
     public bool CreateProduct(BaseProduct product)

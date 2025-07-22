@@ -6,6 +6,7 @@ using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Managers;
 
+// Manager for managing shops and departments of factory
 public class FactoryManager : IFactoryManager
 {
     private readonly IFactoryRepository _factoryRepository;

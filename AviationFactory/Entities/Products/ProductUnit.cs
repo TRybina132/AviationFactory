@@ -20,12 +20,14 @@ public class ProductUnit
     
     public ManufacturingState CurrentState => _state;
     
+    // Used to switch state
     public void MoveToNextStep(ManufacturingStep nextStep)
     {
         _state ??= new ManufacturingState(this, nextStep.CanTransition, nextStep.Name);
         _state.TransitionTo(nextStep);
     }
     
+    // This method will be called by state object
     public void SetState(ManufacturingState state)
     {
         if (_state != null)

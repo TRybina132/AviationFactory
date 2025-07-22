@@ -7,6 +7,7 @@ using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Repositories;
 
+// Repository for managing personnel
 public sealed class PersonnelRepository : IPersonnelRepository
 {
     private readonly List<BaseEmployee> _employees;

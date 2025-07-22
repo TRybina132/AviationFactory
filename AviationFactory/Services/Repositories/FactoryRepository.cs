@@ -4,6 +4,7 @@ using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Repositories;
 
+// Repository for managing factory structure
 public class FactoryRepository : IFactoryRepository
 {
     private readonly List<Shop> _shops;

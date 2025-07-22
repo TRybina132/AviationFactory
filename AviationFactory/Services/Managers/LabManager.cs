@@ -7,6 +7,7 @@ using AviationFactory.Services.Abstractions.Repositories;
 
 namespace AviationFactory.Services.Managers;
 
+// Manager for managing labs
 public class LabManager : ILabManager
 {
     private readonly IProductRepository _productRepository;

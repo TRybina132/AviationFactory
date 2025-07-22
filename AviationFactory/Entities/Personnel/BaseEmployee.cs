@@ -2,6 +2,7 @@ using AviationFactory.Models.Enums;
 
 namespace AviationFactory.Entities.Personnel;
 
+// Base abstract class for all employees
 public abstract class BaseEmployee
 {
     public Guid Id { get; set; }

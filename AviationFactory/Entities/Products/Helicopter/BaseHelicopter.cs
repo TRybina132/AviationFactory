@@ -2,6 +2,7 @@ using AviationFactory.Models.Enums;
 
 namespace AviationFactory.Entities.Products.Helicopter;
 
+// Base class for helicopter
 public class BaseHelicopter : BaseProduct
 {
     public string RotorType { get; set; }

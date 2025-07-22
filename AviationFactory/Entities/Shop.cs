@@ -1,5 +1,6 @@
 namespace AviationFactory.Entities;
 
+// Цех
 public class Shop
 {
     public Guid Id { get; set; }

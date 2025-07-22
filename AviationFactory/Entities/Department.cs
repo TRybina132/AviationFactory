@@ -1,5 +1,6 @@
 namespace AviationFactory.Entities;
 
+// Ділянка цеху
 public class Department
 {
     public Guid Id { get; set; }

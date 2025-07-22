@@ -18,6 +18,7 @@ public sealed class ProductRepository : IProductRepository
     
     public static ProductRepository Instance => _instance;
 
+    // Private constructor to restrict creation of objects outside class
     private ProductRepository()
     {
         _products = [];    
@@ -25,11 +26,13 @@ public sealed class ProductRepository : IProductRepository
         _manufacturingSteps = [];
     }
 
+    // Static constructor to ensure that singleton instance always initialized
     static ProductRepository()
     {
         _instance = new ProductRepository();
     }
     
+    // Singleton instance
     private static readonly ProductRepository _instance;
     
     public List<BasePlane> GetAllPlanes()

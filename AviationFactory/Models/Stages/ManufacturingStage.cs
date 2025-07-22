@@ -2,6 +2,7 @@ using AviationFactory.Entities.Products;
 
 namespace AviationFactory.Models.Stages;
 
+// State of product unit
 public class ManufacturingState
 {
     private readonly ProductUnit _productUnit;
@@ -21,6 +22,7 @@ public class ManufacturingState
 
     public void TransitionTo(ManufacturingStep nextStep)
     {
+        // Check if can transition to next stage
         if (CanTransition.Contains(nextStep.Name))
         {
             EndDate = DateTime.Now;
