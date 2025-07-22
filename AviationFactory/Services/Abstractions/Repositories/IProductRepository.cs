@@ -20,6 +20,7 @@ public interface IProductRepository
     List<ProductUnit> GetProductUnits(Func<ProductUnit, bool> filter);
     ProductUnit? GetProductUnit(Guid productUnitId);
     bool CreateProduct(BaseProduct product);
+    bool CreateProducts(List<BaseProduct> products);
     void CreateManufacturingStep(ManufacturingStep step);
     bool CreateProductUnit(ProductUnit productUnit);
 }

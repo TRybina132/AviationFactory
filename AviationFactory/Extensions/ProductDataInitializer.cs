@@ -6,6 +6,7 @@ using AviationFactory.Entities.Products.Missiles;
 using AviationFactory.Entities.Products.Planes;
 using AviationFactory.Models;
 using AviationFactory.Models.Enums;
+using AviationFactory.Services.Repositories;
 
 namespace AviationFactory.Extensions;
 
@@ -31,8 +32,42 @@ public static class ProductDataInitializer
         return products;
     }
     
-    private static List<BaseProduct> InitializePassengerPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
+    public static List<BaseProduct> InitializePassengerPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
     {
+        var productRepository = ProductRepository.Instance;
+
+        var stepsIds = new List<Guid>();
+        var test = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "Test",
+            Description = "Conduct final tests of the assembled plane.",
+            IsFinal = true,
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = new List<Guid>()
+        };
+        productRepository.CreateManufacturingStep(test);
+        var assembleSalon = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleSalon",
+            Description = "Assemble the passenger salon.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [test.Id],
+        };
+        productRepository.CreateManufacturingStep(assembleSalon);
+        var assemble = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleBase",
+            Description = "Assemble the main structure of the plane.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [assembleSalon.Id],
+        };
+        productRepository.CreateManufacturingStep(assemble);
+        stepsIds.AddRange([test.Id, assembleSalon.Id, assemble.Id]);
+        
+        
         var passengerPlanes = new List<BaseProduct>
         {
             new PassengerPlane
@@ -43,7 +78,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("CFM56", "CFM International", 2),
                 WingType = "Low-wing, swept",
@@ -51,7 +86,7 @@ public static class ProductDataInitializer
                 MaxSpeed = 946,
                 MaxTakeoffWeight = 79015,
                 PlaneType = PlaneType.Passenger,
-                PassengerCapacity = 189
+                PassengerCapacity = 189,
             },
             new PassengerPlane
             {
@@ -61,7 +96,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("LEAP-1A", "CFM International", 2),
                 WingType = "Low-wing, swept",
@@ -72,12 +107,36 @@ public static class ProductDataInitializer
                 PassengerCapacity = 195
             }
         };
+        productRepository.CreateProducts(passengerPlanes);
         
         return passengerPlanes;
     }
     
-    private static List<BaseProduct> InitializeCargoPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
+    public static List<BaseProduct> InitializeCargoPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
     {
+        var productRepository = ProductRepository.Instance;
+
+        var stepsIds = new List<Guid>();
+        var test = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "Test",
+            Description = "Conduct final tests of the assembled plane.",
+            IsFinal = true,
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = new List<Guid>()
+        };
+        productRepository.CreateManufacturingStep(test);
+        var assemble = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleBase",
+            Description = "Assemble the main structure of the plane.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [test.Id],
+        };
+        productRepository.CreateManufacturingStep(assemble);
+        stepsIds.AddRange([test.Id, assemble.Id]);
         var cargoPlanes = new List<BaseProduct>
         {
             new CargoPlane
@@ -88,7 +147,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("GEnx-2B67", "General Electric", 4),
                 WingType = "Low-wing, swept",
@@ -108,7 +167,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("Trent 772B", "Rolls-Royce", 2),
                 WingType = "Low-wing, swept",
@@ -121,11 +180,46 @@ public static class ProductDataInitializer
             }
         };
         
+        productRepository.CreateProducts(cargoPlanes);
+        
         return cargoPlanes;
     }
     
-    private static List<BaseProduct> InitializeMilitaryPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
+    public static List<BaseProduct> InitializeMilitaryPlanes(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
     {
+        var productRepository = ProductRepository.Instance;
+
+        var stepsIds = new List<Guid>();
+        var test = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "Test",
+            Description = "Conduct final tests of the assembled plane.",
+            IsFinal = true,
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = new List<Guid>()
+        };
+        productRepository.CreateManufacturingStep(test);
+        var assembleWeapons = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleWeapons",
+            Description = "Assemble the weapons.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [test.Id],
+        };
+        productRepository.CreateManufacturingStep(assembleWeapons);
+        var assemble = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleBase",
+            Description = "Assemble the main structure of the plane.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [assembleWeapons.Id],
+        };
+        productRepository.CreateManufacturingStep(assemble);
+        stepsIds.AddRange([test.Id, assembleWeapons.Id, assemble.Id]);
+        
         var militaryPlanes = new List<BaseProduct>
         {
             new FighterPlane
@@ -136,7 +230,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("F135", "Pratt & Whitney", 1),
                 WingType = "Delta wing, stealth",
@@ -155,7 +249,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Plane,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(5),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 3),
                 Engines = GenerateEngines("F414-GE-400", "General Electric", 2),
                 WingType = "Mid-wing, swept",
@@ -167,12 +261,60 @@ public static class ProductDataInitializer
                 SupercruiseCapable = false
             }
         };
+        productRepository.CreateProducts(militaryPlanes);
         
         return militaryPlanes;
     }
     
-    private static List<BaseProduct> InitializeHelicopters(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
+    public static List<BaseProduct> InitializeHelicopters(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
     {
+        var productRepository = ProductRepository.Instance;
+
+        var stepsIds = new List<Guid>();
+        var test = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "Test",
+            Description = "Conduct final tests of the assembled helicopter.",
+            IsFinal = true,
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = new List<Guid>()
+        };
+        productRepository.CreateManufacturingStep(test);
+        
+        var assembleWeapons = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleWeapons",
+            Description = "Assemble the weapons.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [test.Id],
+        };
+        productRepository.CreateManufacturingStep(assembleWeapons);
+        
+        var assembleRotor = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleRotor",
+            Description = "Assemble the rotor.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [test.Id, assembleWeapons.Id],
+        };
+        productRepository.CreateManufacturingStep(assembleRotor);
+        var assemble = new ManufacturingStep
+        {
+            Id = Guid.NewGuid(),
+            Name = "AssembleBase",
+            Description = "Assemble the main structure of the plane.",
+            DepartmentId = GetRandomElement(departmentIds),
+            CanTransition = [assembleRotor.Id],
+        };
+        productRepository.CreateManufacturingStep(assemble);
+        stepsIds.AddRange([test.Id, assembleRotor.Id, assemble.Id]);
+
+        var attackHelicopterSteps = new List<Guid>(stepsIds);
+        attackHelicopterSteps.Add(assembleWeapons.Id);
+        
         var helicopters = new List<BaseProduct>
         {
             new AttackHelicopter()
@@ -183,7 +325,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Helicopter,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(4),
+                ManufacturingStepsIds = attackHelicopterSteps,
                 LabsIds = GetRandomSubset(labIds, 2),
                 RotorType = "Four-blade main rotor",
                 MaxAltitude = 5790,
@@ -204,7 +346,7 @@ public static class ProductDataInitializer
                 ProductType = ProductType.Helicopter,
                 ShopId = GetRandomElement(shopIds),
                 DepartmentId = GetRandomElement(departmentIds),
-                ManufacturingStepsIds = GenerateRandomGuids(4),
+                ManufacturingStepsIds = stepsIds,
                 LabsIds = GetRandomSubset(labIds, 2),
                 RotorType = "Four-blade main rotor",
                 MaxAltitude = 5698,
@@ -217,11 +359,15 @@ public static class ProductDataInitializer
             }
         };
         
+        productRepository.CreateProducts(helicopters);
+        
         return helicopters;
     }
     
-    private static List<BaseProduct> InitializeMissiles(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
+    public static List<BaseProduct> InitializeMissiles(List<Guid> shopIds, List<Guid> departmentIds, List<Guid> labIds)
     {
+        var productRepository = ProductRepository.Instance;
+        
         var missiles = new List<BaseProduct>
         {
             new AamMissile()
@@ -259,6 +405,9 @@ public static class ProductDataInitializer
                 WarheadType = "Nuclear"
             }
         };
+        
+        
+        productRepository.CreateProducts(missiles);
         
         return missiles;
     }
