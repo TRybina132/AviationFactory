@@ -42,6 +42,12 @@ public sealed class PersonnelRepository : IPersonnelRepository
         return true;
     }
 
+    public bool CreateBrigade(Brigade brigade)
+    {
+        _brigades.Add(brigade);
+        return true;
+    }
+
     public List<BaseEmployee> GetAllEmployees()
     {
         return _employees;
