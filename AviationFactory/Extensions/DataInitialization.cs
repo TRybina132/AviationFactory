@@ -143,11 +143,3 @@ public static class DataInitialization
     }
 }
 
-public class ShopModel
-{
-    public List<Guid> Employees { get; set; } = [];
-    public List<Guid> Labs { get; set; } = [];
-    public List<Guid> Departments { get; set; } = [];
-    public List<Guid> Brigades { get; set; } = [];
-}
-
