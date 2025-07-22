@@ -29,18 +29,23 @@ var helicopters = productManager.GetProducts(ProductType.Helicopter);
 Console.WriteLine($"Total planes: {planes.Count}");
 Console.WriteLine($"Total helicopters: {helicopters.Count}");
 
+Console.WriteLine("===================");
+
 var militaryProduct = productManager
     .GetProductsAssembledInShop(militaryFacility.ShopId, ProductType.Plane)
     .FirstOrDefault(p => p is FighterPlane);
 
 if (militaryProduct != null)
 {
-    Console.WriteLine($"Fighter plane: {JsonSerializer.Serialize(militaryProduct)}");
+    var fighterPlane = militaryProduct as FighterPlane;
+    Console.WriteLine($"Fighter plane: ");
+    fighterPlane.Display();
     var createProductUnitCommand = new CreateProductUnitCommand
     {
         ProductId = militaryProduct.Id,
         ShopId = militaryFacility.ShopId,
     };
+    Console.WriteLine("===================");
     var productUnitManager = ServiceInitializer.GetProductUnitManager();
     var productUnitId = productUnitManager.CreateProductUnit(createProductUnitCommand);
     if (productUnitId != null)
